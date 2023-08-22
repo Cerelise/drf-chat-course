@@ -46,6 +46,7 @@ class LoginView(APIView):
 
             response = {
                 "message": "登录成功！",
+                "errors": [],
                 "user": {
                     "user_id": user.id,
                     "name": user.username,
