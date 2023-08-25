@@ -10,7 +10,7 @@ function useAxios() {
 		(config) => {
 			const token = localStorage.getItem('user.token')
 			if (token) {
-				config.headers['token'] = 'Token ' + token
+				config.headers['Authorization'] = 'Token ' + token
 			}
 			return config
 		},
