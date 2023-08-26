@@ -7,3 +7,8 @@
 		@apply bg-teal-600;
 	}
 }
+
+.chat-messages {
+	height: 450px;
+	overflow-y: auto;
+}
