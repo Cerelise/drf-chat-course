@@ -7,6 +7,7 @@ from django.contrib.auth import authenticate
 
 from .models import User
 from .serializers import SignUpSerializer
+from .tokens import create_jwt_pair_for_user
 
 
 class SignUpView(generics.GenericAPIView):
@@ -41,9 +42,9 @@ class LoginView(APIView):
         current_user = User.objects.filter(email=email)
 
         if user is not None:
-            Token.objects.filter(user=current_user[0]).delete()
-            Token.objects.create(user=current_user[0])
-
+            # Token.objects.filter(user=current_user[0]).delete()
+            # Token.objects.create(user=current_user[0])
+            tokens = create_jwt_pair_for_user(user)
             response = {
                 "message": "登录成功！",
                 "errors": [],
@@ -51,7 +52,7 @@ class LoginView(APIView):
                     "user_id": user.id,
                     "name": user.username,
                     "email": user.email,
-                    "token": user.auth_token.key,
+                    "token": tokens,
                 },
             }
             return Response(data=response, status=status.HTTP_200_OK)
